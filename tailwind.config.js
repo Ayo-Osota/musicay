@@ -23,6 +23,7 @@ module.exports = {
       },
       colors: {
         mainBg: '#1D2123',
+        button: '#FFFFFF12',
         mainBgGradient: 'linear-gradient(180deg, rgba(29, 33, 35, 0.80) 0%, #1D2123 61.48%), url(<path-to-image>), lightgray 50%',
         primary: {
           100: '#EFEEE0',

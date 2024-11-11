@@ -4,7 +4,7 @@
     class="grid grid-flow-col gap-5 md:gap-0 grid-cols-[auto_auto_1fr] md:grid-cols-[96px_1fr] justify-start items-center z-30"
   >
     <!-- Hamburger menu -->
-    <button type="button" class="md:hidden z-50" @click.prevent="sidenavStore.toggle">
+    <button type="button" class="md:hidden z-50" @click.prevent="appStore.toggleSidenav">
       <icon-menu />
     </button>
     <!-- Logo -->
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSidenavStore } from '@/stores/sidenav'
+import { useAppStore } from '@/stores/appStore'
 
-const sidenavStore = useSidenavStore()
+const appStore = useAppStore()
 </script>

@@ -3,6 +3,8 @@ import HomePage from "@/pages/HomePage.vue"
 import CollectionsPage from "@/pages/CollectionsPage.vue"
 import SingleMusicPage from "@/pages/SingleMusicPage.vue"
 import NotFoundPage from "@/pages/NotFoundPage.vue"
+import ProfilePage from '@/pages/ProfilePage.vue'
+import { useAppStore } from '@/stores/appStore'
 
 const routes = [
   {
@@ -31,14 +33,45 @@ const routes = [
     component: SingleMusicPage
   },
   {
+    name: 'UserProfile',
+    path: "/profile",
+    component: ProfilePage
+  },
+  {
     path: "/:catchAll(.*)*",
     component: NotFoundPage
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 })
+
+
+
+const openRoutes: string[] = [
+  "Home",
+  'Radio',
+  'Videos',
+  'SingleMusic',
+];
+
+router.beforeEach((to: any, from: any, next: any) => {
+  if (openRoutes.includes(to.name)) {
+    next()
+    return
+  }
+
+  const appStore = useAppStore()
+  const store = 'useUserStore()'
+
+  if ('store.userLoggedIn' === 'store.userLoggedIn') {
+    next()
+  } else {
+    appStore.isAuthModalOpen = true
+  }
+});
+
 
 export default router

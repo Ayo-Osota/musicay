@@ -2,7 +2,11 @@
   <div class="max-md:hidden mx-auto fixed left-5">
     <nav>
       <ul class="py-6.5 px-4 bg-primary-900 rounded-4xl flex flex-col gap-7.5">
-        <li v-for="item in menuItems" :key="item.id" @click.prevent="sidenavStore.close">
+        <li
+          v-for="item in menuItems.slice(0, 4)"
+          :key="item.id"
+          @click.prevent="appStore.closeSidenav"
+        >
           <router-link :to="item.route">
             <component :is="item.icon"></component>
           </router-link>
@@ -11,9 +15,9 @@
 
       <ul class="py-6.5 px-4 bg-primary-900 rounded-4xl flex flex-col gap-7.5 mt-5">
         <li>
-          <button type="button">
+          <router-link :to="{ name: 'UserProfile' }">
             <icon-profile />
-          </button>
+          </router-link>
         </li>
         <li>
           <button type="button">
@@ -26,21 +30,15 @@
 
   <div
     class="md:hidden fixed top-0 left-0 bg-primary-900 h-full pt-20 px-8 w-10/12 max-w-[340px] transition-transform duration-300 z-40"
-    :class="sidenavStore.hiddenClass"
+    :class="appStore.sidenavHiddenClass"
   >
     <nav class="mt-5 ml-1.5 h-1/2 max-h-[423px]">
       <ul class="flex flex-col h-full justify-between">
-        <li v-for="item in menuItems" :key="item.id" @click.prevent="sidenavStore.close">
+        <li v-for="item in menuItems" :key="item.id" @click.prevent="appStore.closeSidenav">
           <router-link :to="item.route" class="link-item">
             <component :is="item.icon" class="max-md:w-7"></component>
             <span class="text-primary-100/25 text-base font-bold">{{ item.name }}</span>
           </router-link>
-        </li>
-        <li>
-          <button type="button" class="link-item">
-            <icon-profile class="max-md:w-7" />
-            <span class="text-primary-100/25 text-base font-bold">Profile</span>
-          </button>
         </li>
         <li>
           <button type="button" class="link-item">
@@ -59,9 +57,10 @@ import type { NavLinkInterface } from '../interfaces/navLink'
 import IconPlaylist from './icons/IconPlaylist.vue'
 import IconRadio from './icons/IconRadio.vue'
 import IconVideo from './icons/IconVideo.vue'
-import { useSidenavStore } from '../stores/sidenav'
+import IconProfile from './icons/IconProfile.vue'
+import { useAppStore } from '@/stores/appStore'
 
-const sidenavStore = useSidenavStore()
+const appStore = useAppStore()
 
 const menuItems: NavLinkInterface[] = [
   {
@@ -87,13 +86,13 @@ const menuItems: NavLinkInterface[] = [
     name: 'Music videos',
     route: { name: 'Videos' },
     icon: IconVideo
+  },
+  {
+    id: '5',
+    name: 'Profile',
+    route: { name: 'UserProfile' },
+    icon: IconProfile
   }
-  //   {
-  //     id: '5',
-  //     name: 'Profile',
-  //     route: { name: 'Profile' },
-  //     icon: IconHome
-  //   },
   //   {
   //     id: '6',
   //     name: 'Home',
